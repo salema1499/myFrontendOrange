@@ -1,0 +1,38 @@
+
+
+<form class="row gy-3" #registerForm="ngForm" (ngSubmit)="handleSubmit(registerForm)">
+    
+    <div class="col-6">
+        <input type="text" class="form-control" placeholder="First Name" 
+        name="firstName" required minlength="3" [(ngModel)]="model.firstName" #firstName="ngModel"  >
+        <div class="alert alert-danger" *ngIf="registerForm.submitted && firstName.invalid">
+           
+            <div *ngIf="firstName.errors?.['required']">
+               First Name is Required
+            </div>
+            <div *ngIf="firstName.errors?.['minlength']">
+                min length = 3
+             </div>
+        </div>
+    </div>
+    <div class="col-6">
+        <input type="email" class="form-control" placeholder="Email" name="userEmail" email  [(ngModel)]="model.email">
+    </div>
+    <div class="col-6">
+        <input type="password" class="form-control" required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required name="password" placeholder="password" 
+         [(ngModel)]="model.password" #password="ngModel">
+         <div class="alert alert-danger" *ngIf="password.invalid && (password.dirty || registerForm.submitted)">
+            <div *ngIf="password.errors?.['required']">
+                email is required
+            </div>
+            <div *ngIf="password.errors?.['pattern']">
+                match the pattern
+            </div>
+         </div>
+    </div>
+    <div class="col-12">
+        <button class="btn btn-primary">
+            Submit
+        </button>
+    </div>
+</form>
